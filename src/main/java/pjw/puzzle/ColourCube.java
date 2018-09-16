@@ -31,14 +31,14 @@ public class ColourCube {
 
     public Color getColour(int red, int green, int blue) throws InvalidPuzzleColourException {
         if (!areCoordinatesValid(red, green, blue)) {
-            throw new InvalidPuzzleColourException();
+            throw new InvalidPuzzleColourException("r:"+red+",g:"+green+",b:"+blue);
         }
         return colours[red][green][blue];
     }
 
     public Color takeColour(int red, int green, int blue) throws InvalidPuzzleColourException {
         if (!areCoordinatesValid(red, green, blue)) {
-            throw new InvalidPuzzleColourException();
+            throw new InvalidPuzzleColourException("r:"+red+",g:"+green+",b:"+blue);
         }
         Color colour = colours[red][green][blue];
         colours[red][green][blue] = null;

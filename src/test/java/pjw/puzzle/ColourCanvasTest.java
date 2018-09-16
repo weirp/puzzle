@@ -26,7 +26,7 @@ public class ColourCanvasTest {
     }
 
     @Test
-    public void scoopsAddUp1() throws InvalidPuzzleColourException {
+    public void scoopsAddUp1() throws InvalidPuzzleColourException, InvalidCanvasCoordinateException {
         ColourCanvas canvas = new ColourCanvas();
         assertThat(canvas).isNotNull();
         assertThat(canvas.blankSpaces()).isEqualTo(32768);

@@ -22,16 +22,32 @@ import java.util.Set;
 public class PuzzleController {
 
     @RequestMapping(value = "/", produces = MediaType.IMAGE_PNG_VALUE)
-    public void showImage(HttpServletResponse response) throws InvalidPuzzleColourException {
+    public void showImage(HttpServletResponse response) throws InvalidPuzzleColourException, InvalidCanvasCoordinateException {
         BufferedImage img = new BufferedImage(256,128,BufferedImage.TYPE_INT_RGB);
         Graphics2D gr = img.createGraphics();
-
         ColourCube cc = new ColourCube();
         ColourCanvas canvas = new ColourCanvas();
 
+        buildPicture(cc, canvas);
+
+        populateResponse(response, cc, canvas, gr, img);
+    }
+
+    @RequestMapping(value = "/pic2", produces = MediaType.IMAGE_PNG_VALUE)
+    public void showImage2(HttpServletResponse response) throws InvalidPuzzleColourException, InvalidCanvasCoordinateException {
+        BufferedImage img = new BufferedImage(256,128,BufferedImage.TYPE_INT_RGB);
+        Graphics2D gr = img.createGraphics();
+        ColourCube cc = new ColourCube();
+        ColourCanvas canvas = new ColourCanvas();
+
+        buildPicture2(cc, canvas);
+
+        populateResponse(response, cc, canvas, gr, img);
+    }
+
+    private void buildPicture(ColourCube cc, ColourCanvas canvas) throws InvalidPuzzleColourException, InvalidCanvasCoordinateException {
         Set<Color> scoop = cc.takeScoop(Color.CYAN, 1320);
         canvas.drawBox(25, 10, 50, scoop);
-
 
         scoop = cc.takeScoop(Color.YELLOW, 2620);
         canvas.drawCircle(53, 20, scoop);
@@ -44,7 +60,28 @@ public class PuzzleController {
         canvas.drawBox(133, 0, 90, scoop);
 
         canvas.fillRest(cc);
+    }
 
+    private void buildPicture2(ColourCube cc, ColourCanvas canvas) throws InvalidPuzzleColourException, InvalidCanvasCoordinateException {
+        Set<Color> scoop = cc.takeScoop(Color.PINK, 1320);
+        canvas.drawCircle(45, 10, scoop);
+
+        scoop = cc.takeScoop(Color.PINK, 120);
+        canvas.drawBox(12, 16, 25, scoop);
+
+
+        scoop = cc.takeScoop(Color.RED, 7300);
+        canvas.drawCircle(130, 60, scoop);
+
+        scoop = cc.takeScoop(Color.BLUE, 8000);
+        canvas.drawBox(133, 0, 90, scoop);
+
+        canvas.fillRest(cc);
+    }
+
+    private void populateResponse(HttpServletResponse response, ColourCube cc,
+                                  ColourCanvas canvas, Graphics2D gr, BufferedImage img) throws InvalidCanvasCoordinateException, InvalidPuzzleColourException {
+        canvas.fillRest(cc);
         canvas.renderCanvas(gr);
 
         try {
@@ -61,10 +98,5 @@ public class PuzzleController {
         }
     }
 
-    private void buildPicture(ColourCube cc, ColourCanvas canvas) {
-
-
-
-    }
 
 }
