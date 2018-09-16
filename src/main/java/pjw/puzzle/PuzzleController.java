@@ -40,6 +40,9 @@ public class PuzzleController {
         scoop = cc.takeScoop(Color.RED, 7300);
         canvas.drawCircle(130, 60, scoop);
 
+        scoop = cc.takeScoop(Color.BLUE, 8000);
+        canvas.drawBox(133, 0, 90, scoop);
+
         canvas.fillRest(cc);
 
         canvas.renderCanvas(gr);

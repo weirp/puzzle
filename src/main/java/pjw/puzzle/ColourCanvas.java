@@ -9,6 +9,15 @@ import java.util.List;
  */
 public class ColourCanvas {
     Color[][] canvas;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private int width;
     private int height;
 
@@ -115,6 +124,18 @@ public class ColourCanvas {
                 }
             }
         }
+    }
+
+    public int blankSpaces() {
+        int count = 0;
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                if (this.canvas[x][y] == null) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }
